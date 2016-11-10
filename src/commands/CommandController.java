@@ -22,6 +22,9 @@ public class CommandController {
 		commands.add(new CommandUnmute());
 		commands.add(new CommandKick());
 		commands.add(new CommandSend());
+		commands.add(new CommandAdminLogin());
+        commands.add(new CommandStatus());
+        commands.add(new CommandHelp());
 
 	}
 

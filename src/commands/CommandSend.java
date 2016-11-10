@@ -17,7 +17,7 @@ public class CommandSend implements Command{
 	
 		if (requireAdmin()) {
 			if (executer.getAccountType() != AccountType.ADMIN) {
-				executer.sendMessage("Musisz byc administratorem, aby wywolac to funckje");
+				executer.sendMessage("You are not the admin!");
 				return;
 			}
 		}
@@ -26,7 +26,7 @@ public class CommandSend implements Command{
 		
 
 		if (otherUser == null) {
-			executer.sendMessage("Taki uzytkownik nie istnieje!");
+			executer.sendMessage("User doesn't exist");
 			return;
 		}
 
@@ -50,7 +50,7 @@ public class CommandSend implements Command{
 
 	@Override
 	public String getInfo() {
-		return "Wpisz w czat /send nick 'a tutaj tresc wiadomosci'";
+		return "Command not exist||use: /send <nick> <message>";
 	}
 
 }

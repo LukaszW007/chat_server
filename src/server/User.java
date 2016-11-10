@@ -25,11 +25,10 @@ public class User extends Thread {
 	private PrintWriter printWriter;
 	private BufferedReader bufferedReader;
 	private CommandController commandController;
-	private Date date;
 
 	public User(Socket localSocket) {
 		userSocket = localSocket;
-		accountType = AccountType.ADMIN;
+		accountType = AccountType.USER;
 		init();
 	}
 
@@ -39,7 +38,7 @@ public class User extends Thread {
 			bufferedReader = new BufferedReader(new InputStreamReader(getSocket().getInputStream()));
 
 		} catch (IOException e) {
-			System.out.println("Inicialization stream's error");
+			System.out.println("Initialization stream's error");
 			e.printStackTrace();
 		}
 		commandController = new CommandController(this);
@@ -140,7 +139,7 @@ public class User extends Thread {
 }
 	
 	private String getTime() {
-		return new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
+		return new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
 	}
 	
 

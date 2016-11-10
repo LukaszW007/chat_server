@@ -20,7 +20,7 @@ public class CommandKick implements Command {
 		}
 		if (requireAdmin()) {
 			if (executer.getAccountType() != AccountType.ADMIN) {
-				executer.sendMessage("Musisz byc administratorem, aby wywolac funckje");
+				executer.sendMessage("You are not the admin!");
 				return;
 			}
 		}
@@ -29,13 +29,13 @@ public class CommandKick implements Command {
 		
 
 		if (otherUser == null) {
-			executer.sendMessage("Taki uzytkownik nie istnieje!");
+			executer.sendMessage("User doesn't exist");
 			return;
 		}
 		
 
-		otherUser.kick("<b> Zostal wyrzucony z chatu przez " + executer.getFullName()+ ".</b>");
-		executer.sendMessage("<b> Wyrzucie " + args[0] + " z czatu.</b>");
+		otherUser.kick("<b> Kicked out by " + executer.getFullName()+ ".</b>");
+		executer.sendMessage("<b> You kicked out " + args[0] + " from the chat</b>");
 	
 	}
 
