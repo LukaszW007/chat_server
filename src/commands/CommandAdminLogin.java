@@ -2,37 +2,56 @@ package commands;
 
 import server.User;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 
 /**
  * Created by Wisnia on 2016-11-09.
  */
-public class CommandAdminLogin implements Command,ActionListener{
+public class CommandAdminLogin implements Command, ActionListener {
+    private ExecutorService threadServiceCommands;
+
     @Override
     public boolean requireAdmin() {
         return false;
     }
 
     @Override
-    public void performAction(User executer, String... args) {
-        if(args.length>0){
-            executer.sendMessage(getInfo());
+    public void performAction(User executor, String... args) {
+        if(executor.getAccountType()==User.AccountType.ADMIN) {
+            executor.sendMessage("<b> You are already administrator! </b>");
             return;
         }
-        String pass = JOptionPane.showInputDialog(this,"password");
-        if(pass==null)return;
-        if(pass.equals("a")){//admiN&Password2016
-            executer.setAccountType(User.AccountType.ADMIN);
-                executer.sendMessage("<b>You logged in as Administrator</b>");
+        if (args.length > 1) {
+            executor.sendMessage(getInfo());
+            return;
+        }
+        if (args.length == 0) {
+            executor.sendMessage("#adminlogindialoginput");
+            return;
+        }
+
+        if (args.length == 1) {
+            String pass = args[0];
+            if (pass == null) return;
+            if (pass.equals("admiN&Password2016")) {  //admiN&Password2016
+                executor.setAccountType(User.AccountType.ADMIN);
+                executor.sendMessage("<b>You logged in as Administrator</b>");
 
                 return;
 
-        }else{
-            executer.sendMessage("<b>Password is incorrect</b>");
-            return;
+            } else {
+                executor.sendMessage("<b>Password is incorrect</b>");
+                return;
+            }
         }
+
 
     }
 

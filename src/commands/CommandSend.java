@@ -21,9 +21,12 @@ public class CommandSend implements Command{
 				return;
 			}
 		}
-
+		if (args.length == 0){
+			executer.sendMessage(getInfo());
+			return;
+		}
 		User otherUser = Server.getUserByName(args[0]);
-		
+
 
 		if (otherUser == null) {
 			executer.sendMessage("User doesn't exist");

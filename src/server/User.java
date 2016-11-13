@@ -104,6 +104,17 @@ public class User extends Thread {
 		printWriter.println(msg);
 	}
 
+	public void sendListOfUsers(){
+		String list = "#usersList";
+		for(User u:Server.getUserList()){
+			list=list+" "+u.getFullName().toString();
+			System.out.println(list);
+		}
+		if(list==null)
+			throw new NullPointerException();
+		sendMessagetoAll(list);
+	}
+
 	public void disconnect() {
 		if (Server.getUserList().contains(this)) {
 			Server.getUserList().remove(this);
@@ -120,7 +131,7 @@ public class User extends Thread {
 		return !getSocket().isClosed();
 	}
 
-	private String getMessage() {
+	public String getMessage() {
 		try {
 			return bufferedReader.readLine();
 		} catch (IOException e) {
@@ -155,9 +166,9 @@ public class User extends Thread {
 			if (!isConnected()) {
 				break;
 			}
+			sendListOfUsers();
 			String input = getMessage();
 			// command engine is run
-			// if( )
 			if (input != null) {
 				if (commandController.searchCommand(input))
 					continue;
@@ -174,7 +185,7 @@ public class User extends Thread {
 	}
 
 	public enum AccountType {
-		ADMIN(), USER();
+		ADMIN(), USER()
 	}
 
 }

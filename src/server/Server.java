@@ -21,6 +21,7 @@ public class Server {
 	public static final int maxUser = 20;
 
 	private ServerSocket server;
+	private Socket usersListSocket;
 
 	private ExecutorService threadService;
 
@@ -35,32 +36,29 @@ public class Server {
 
 	public Server() {
 		// new sever created
-		InetSocketAddress adress = new InetSocketAddress(HOST, PORT);
+		InetSocketAddress address = new InetSocketAddress(HOST, PORT);
 
 		try {
 			server = new ServerSocket();
-			server.bind(adress);
+			server.bind(address);
 		} catch (IOException e) {
 			System.out.println("Server initialization failed");
 			e.printStackTrace();
 		}
 
 		userList = new ArrayList<User>(maxUser+1);
-		threadService = Executors.newFixedThreadPool(maxUser);
+		threadService = Executors.newFixedThreadPool(maxUser+1);
 		listenToSockets();
 	}
 
 	private void listenToSockets() {
 
 		System.out.println("Listening is started");
-	
 
 				while (true) {
 					try {
-						
-						
 						User user = new User(server.accept());
-						
+
 						if(getUserList().size()>maxUser){
 							user.sendMessage("Limit of users. Try again later.");
 							user.disconnect();
@@ -78,8 +76,6 @@ public class Server {
 						e.printStackTrace();
 					}
 				}
-
-			
 	}
 
 	public static List<User> getUserList() {
