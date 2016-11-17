@@ -13,7 +13,7 @@ public class CommandStatus implements Command {
 
     @Override
     public void performAction(User user, String... args) {
-        if(args.length>0){
+        if (args.length > 0) {
             user.sendMessage(getInfo());
             return;
         }

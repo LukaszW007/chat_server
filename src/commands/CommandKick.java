@@ -6,47 +6,47 @@ import server.User.AccountType;
 
 public class CommandKick implements Command {
 
-	@Override
-	public boolean requireAdmin() {
-		return true;
-	}
+    @Override
+    public boolean requireAdmin() {
+        return true;
+    }
 
-	@Override
-	public void performAction(User executer, String... args) {
-		
-		if (args.length != 1) {
-			executer.sendMessage(getInfo());
-			return;
-		}
-		if (requireAdmin()) {
-			if (executer.getAccountType() != AccountType.ADMIN) {
-				executer.sendMessage("You are not the admin!");
-				return;
-			}
-		}
+    @Override
+    public void performAction(User executer, String... args) {
 
-		User otherUser = Server.getUserByName(args[0]);
-		
+        if (args.length != 1) {
+            executer.sendMessage(getInfo());
+            return;
+        }
+        if (requireAdmin()) {
+            if (executer.getAccountType() != AccountType.ADMIN) {
+                executer.sendMessage("You are not the admin!");
+                return;
+            }
+        }
 
-		if (otherUser == null) {
-			executer.sendMessage("User doesn't exist");
-			return;
-		}
-		
+        User otherUser = Server.getUserByName(args[0]);
 
-		otherUser.kick("<b> Kicked out by " + executer.getFullName()+ ".</b>");
-		executer.sendMessage("<b> You kicked out " + args[0] + " from the chat</b>");
-	
-	}
 
-	@Override
-	public String getName() {
-		return "kick";
-	}
+        if (otherUser == null) {
+            executer.sendMessage("User doesn't exist");
+            return;
+        }
 
-	@Override
-	public String getInfo() {
-		return "Wpisz /kick nick - aby kogos wyrzucic";
-	}
+
+        otherUser.kick("<b> Kicked out by " + executer.getFullName() + ".</b>");
+        executer.sendMessage("<b> You kicked out " + args[0] + " from the chat</b>");
+
+    }
+
+    @Override
+    public String getName() {
+        return "kick";
+    }
+
+    @Override
+    public String getInfo() {
+        return "Wpisz /kick nick - aby kogos wyrzucic";
+    }
 
 }

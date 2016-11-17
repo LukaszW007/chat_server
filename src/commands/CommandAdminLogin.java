@@ -4,11 +4,7 @@ import server.User;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 
 /**
@@ -24,7 +20,7 @@ public class CommandAdminLogin implements Command, ActionListener {
 
     @Override
     public void performAction(User executor, String... args) {
-        if(executor.getAccountType()==User.AccountType.ADMIN) {
+        if (executor.getAccountType() == User.AccountType.ADMIN) {
             executor.sendMessage("<b> You are already administrator! </b>");
             return;
         }
